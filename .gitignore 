@@ -26,3 +26,7 @@ db/ex.py
 *.pyc
 logs/
 .idea/
+my_app/api/__pycache__/urls.cpython-310.pyc
+my_app/api/__pycache__/views.cpython-310.pyc
+my_app/catapp/__pycache__/models.cpython-310.pyc
+__pycache__/
