@@ -37,14 +37,6 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    def to_dict(self):
-        return {
-            'email': self.email,
-            'username': self.username,
-            'is_confirmed': self.is_confirmed,
-            'created_at': self.created_at,
-        }
-
 
 class Confirmations(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -65,30 +57,11 @@ class Posts(models.Model):
     dislikes_count = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tags, through='PostTags')
 
-    def to_dict(self):
-        return {
-            'user_id': self.user_id,
-            'title': self.title,
-            'description': self.description,
-            'created_at': self.created_at,
-            'likes_count': self.likes_count,
-            'dislikes_count': self.dislikes_count,
-            'images': [img.to_dict() for img in self.all_images.all()],
-            'tags': [tag.name for tag in self.tags.all()]
-        }
-
 
 class Images(models.Model):
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='all_images')
     image_path = models.ImageField(blank=False)
     preview_image_path = models.ImageField()
-
-    def to_dict(self):
-        return {
-            'post_id': self.post_id,
-            'image_path': self.image_path,
-            'preview_image_path': self.preview_image_path,
-        }
 
 
 class PostTags(models.Model):

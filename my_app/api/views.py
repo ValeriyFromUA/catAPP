@@ -1,33 +1,26 @@
-from rest_framework import generics, status
-from rest_framework.permissions import AllowAny
-from django.contrib.auth import get_user_model
-from django.contrib.auth.hashers import make_password
+from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView
 
-from catapp.models import UserManager
+from .serializers import UserSerializer
+from catapp.models import User
 
 
-class UserCreateView(generics.CreateAPIView):
-    queryset = get_user_model().objects.all()
-    permission_classes = [AllowAny]
-
-    @api_view(['POST'])
-    def create(self, request):
-        email = request.data.get('email', None)
-        username = request.data.get('username', None)
-        password = request.data.get('password', None)
-        if email and username and password:
-            user = UserManager().create_user(
-                email=email,
-                username=username,
-                password=make_password(password),
-            )
-            return Response({'status': 'User created successfully'}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({'error': 'Email, username, and password are required fields.'},
-                            status=status.HTTP_400_BAD_REQUEST)
-
+class UserView:
+    @staticmethod
     @api_view(['GET'])
-    def get(self, request):
-        pass
+    def get():
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
+
+    @staticmethod
+    @api_view(['POST'])
+    def post(request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
