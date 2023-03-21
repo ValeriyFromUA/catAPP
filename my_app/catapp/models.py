@@ -1,41 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 
 
-class UserManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
-        if not email:
-            raise ValueError("Email is required")
-        if not username:
-            raise ValueError("Username is required")
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, username, password=None):
-        user = self.create_user(
-            email=self.normalize_email(email),
-            username=username,
-            password=password,
-        )
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        return user
-
-
-class User(AbstractBaseUser):
-    email = models.EmailField(unique=True)
-    username = models.CharField(unique=True, max_length=30)
+class User(AbstractUser):
+    name = models.CharField(max_length=200, null=True)
+    email = models.EmailField(unique=True, null=True)
+    bio = models.TextField(null=True)
+    avatar = models.ImageField(null=True, default="avatar.svg")
     is_confirmed = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = []
 
 
 class Confirmations(models.Model):
@@ -59,7 +33,7 @@ class Posts(models.Model):
 
 
 class Images(models.Model):
-    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name='all_images')
+    post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
     image_path = models.ImageField(blank=False)
     preview_image_path = models.ImageField()
 

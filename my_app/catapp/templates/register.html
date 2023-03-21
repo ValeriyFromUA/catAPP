@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <form class="container" action="" method="POST">
+          {% csrf_token %}
+          <div class="form__group form__group">
+            <label for="room_name">Email</label>
+            <input id="username" name="email" type="email" placeholder="e.g. dennis_ivy@email.com />
+          </div>
+          <div class=" form">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password"
+              placeholder="enter your password" />
+          </div>
+
+          <button class="btn btn--main" type="submit">
+            Login
+          </button>
+        </form>
+{% endblock %}
