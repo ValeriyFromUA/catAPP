@@ -7,11 +7,10 @@ urlpatterns = [
     path('register/', views.register_page, name="register"),
     #
     path('', views.home, name="home"),
-    # path('room/<str:pk>/', views.room, name="room"),
-    # path('profile/<str:pk>/', views.userProfile, name="user-profile"),
+    path('profile/<str:pk>/', views.user_profile, name="profile"),
     #
-    # path('create-room/', views.createRoom, name="create-room"),
-    # path('update-room/<str:pk>/', views.updateRoom, name="update-room"),
+    path('edit_profile/<str:pk>/', views.edit_profile, name="edit_profile"),
+    path('confirm', views.confirm, name="confirm")
     # path('delete-room/<str:pk>/', views.deleteRoom, name="delete-room"),
     # path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
     #

@@ -1,13 +1,14 @@
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from random import randrange
 from typing import NoReturn
 from logger import get_logger
 
 logger = get_logger(__name__)
 
 
-def mail_sender(recipient: str, secret_code: int) -> NoReturn:
+def send_confirmation_email(recipient, secret_code: int) -> NoReturn:
     """ This is test account, you can use it if you want, before it deleted """
 
     # email = 'hitehnik142.for.test@gmail.com'
@@ -28,4 +29,8 @@ def mail_sender(recipient: str, secret_code: int) -> NoReturn:
     # server.sendmail(email, recipient, text)
     logger.info(f"Code was sent to {recipient}")
     # server.quit()
-    return f'mail sent to {recipient} with code {secret_code}'
+    return print(f'mail sent to {recipient} with code {secret_code}')
+
+
+def code_confirmator():
+    pass
