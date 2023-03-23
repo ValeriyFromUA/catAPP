@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, Confirmations
+from django import forms
 
 
 class NewUserForm(UserCreationForm):
@@ -13,9 +14,6 @@ class UserForm(ModelForm):
     class Meta:
         model = User
         fields = ['bio', 'avatar']
-
-
-from django import forms
 
 
 class ConfirmationForm(forms.Form):

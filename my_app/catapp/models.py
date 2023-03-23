@@ -7,13 +7,11 @@ from cofirmation import send_confirmation_email
 
 
 class User(AbstractUser):
-    username = models.CharField(max_length=200, null=True)
+    username = models.CharField(max_length=200, null=True, unique=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True)
     avatar = models.ImageField(null=True, default="avatar.svg")
     is_confirmed = models.BooleanField(default=False)
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
 
 class Confirmations(models.Model):

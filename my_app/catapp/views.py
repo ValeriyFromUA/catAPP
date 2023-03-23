@@ -13,24 +13,17 @@ from .models import User, Confirmations, Posts, Likes, Tags, Images, PostTags
 
 
 def login_page(request):
-    page = 'login'
-    if request.user.is_authenticated:
-        return redirect('home')
     if request.method == 'POST':
-        email = request.POST.get('email')
+        username = request.POST.get('username')
         password = request.POST.get('password')
 
-        try:
-            user = User.objects.get(email=email)
-        except:
-            messages.error(request, 'User does not exist')
-
-        user = authenticate(request, email=email, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is None:
             messages.error(request, 'Username OR password does not exit')
+        login(request, user)
+        return redirect(reverse('profile', args=[user.id]))
 
-    context = {'page': page}
-    return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 
 def logout_user(request):
