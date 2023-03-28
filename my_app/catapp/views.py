@@ -6,9 +6,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse
 
-from catogramm.settings import BASE_DIR
 from cofirmation import send_confirmation_email
-from .forms import NewUserForm, UserForm, ConfirmationForm
+from .forms import NewUserForm, UserForm, ConfirmationForm, PostsForm, ImagesForm, TagsForm
 from .models import User, Confirmations, Posts, Likes, Tags, Images, PostTags
 
 
@@ -26,6 +25,7 @@ def login_page(request):
     return render(request, 'login.html')
 
 
+@login_required
 def logout_user(request):
     logout(request)
     return redirect('home')
@@ -49,6 +49,7 @@ def register_page(request):
     return render(request, 'register.html', {'form': form})
 
 
+@login_required
 def confirm(request):
     if request.method == 'POST':
         form = ConfirmationForm(request.POST)
@@ -88,7 +89,29 @@ def home(request):
     return render(request, 'home.html')
 
 
+@login_required
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
-    context = {'user': user}
+    posts = Posts.objects.filter(user_id=pk)
+    images = Images.objects.filter(post_id__user_id=pk).select_related('post_id__user_id')
+    context = {'user': user, 'posts': posts, 'images': images}
     return render(request, 'profile.html', context)
+
+
+@login_required
+def new_post(request):
+    if request.method == 'POST':
+        post_form = PostsForm(request.POST)
+        images_form = ImagesForm(request.POST, request.FILES)
+        if not post_form.is_valid():
+            messages.error(request, 'Invalid post_form')
+        if not images_form.is_valid():
+            messages.error(request, 'Invalid images_form')
+        post = post_form.save(commit=False)
+        post.user_id = request.user
+        post.save()
+        for image in request.FILES.getlist('image'):
+            image = Images(post_id=post, image=image, preview_image=image)
+            image.save()
+        return redirect(reverse('profile', args=[request.user.id]))
+    return render(request, 'new_post.html')

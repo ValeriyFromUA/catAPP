@@ -1,9 +1,5 @@
-from random import randrange
-
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-from cofirmation import send_confirmation_email
+from django.db import models
 
 
 class User(AbstractUser):
@@ -36,8 +32,8 @@ class Posts(models.Model):
 
 class Images(models.Model):
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    image_path = models.ImageField(blank=False)
-    preview_image_path = models.ImageField()
+    image = models.ImageField(blank=False)
+    preview_image = models.ImageField(blank=True)
 
 
 class PostTags(models.Model):

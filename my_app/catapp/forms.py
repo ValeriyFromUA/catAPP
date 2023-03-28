@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Confirmations
+from .models import User, Images, Posts, Tags
 from django import forms
 
 
@@ -18,3 +18,23 @@ class UserForm(ModelForm):
 
 class ConfirmationForm(forms.Form):
     confirmation_key = forms.CharField(label='confirmation key', max_length=50)
+
+
+class PostsForm(ModelForm):
+    class Meta:
+        model = Posts
+        fields = ['title', 'description']
+
+
+class TagsForm(ModelForm):
+    class Meta:
+        model = Tags
+        fields = ['name']
+
+
+class ImagesForm(ModelForm):
+    image_path = forms.ImageField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    class Meta:
+        model = Images
+        fields = ['image']

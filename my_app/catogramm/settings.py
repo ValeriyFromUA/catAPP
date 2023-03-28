@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catapp.apps.CatappConfig',
     'rest_framework',
+    'imagekit',
 ]
 AUTH_USER_MODEL = 'catapp.User'
 

@@ -139,3 +139,17 @@ GitHub.sublime-settings
 !.vscode/launch.json
 !.vscode/extensions.json
 .history
+#.idea files
+
+
+#Python byte code files
+__pycache__/
+
+#Django migration files
+catapp/migrations/__pycache__/
+static/images/
+catapp/catogramm/__pycache__/
+catogramm/__pycache__/
+
+../.idea/
+
