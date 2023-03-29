@@ -1,10 +1,10 @@
 from random import randrange
-
+from PIL import Image
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from cofirmation import send_confirmation_email
 from .forms import NewUserForm, UserForm, ConfirmationForm, PostsForm, ImagesForm, TagsForm
@@ -28,7 +28,7 @@ def login_page(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect('home')
+    return redirect(reverse_lazy('home'))
 
 
 def register_page(request):
@@ -85,6 +85,7 @@ def edit_profile(request, pk):
     return render(request, 'edit_profile.html', {'form': form})
 
 
+@login_required
 def home(request):
     return render(request, 'home.html')
 
@@ -93,7 +94,7 @@ def home(request):
 def user_profile(request, pk):
     user = User.objects.get(id=pk)
     posts = Posts.objects.filter(user_id=pk)
-    images = Images.objects.filter(post_id__user_id=pk).select_related('post_id__user_id')
+    images = Images.objects.filter(post_id__user_id=pk).select_related('post_id__user_id').first
     context = {'user': user, 'posts': posts, 'images': images}
     return render(request, 'profile.html', context)
 
@@ -111,7 +112,15 @@ def new_post(request):
         post.user_id = request.user
         post.save()
         for image in request.FILES.getlist('image'):
-            image = Images(post_id=post, image=image, preview_image=image)
+            image = Images(post_id=post, image=image)
             image.save()
+        first_image = Images.objects.filter(post_id=post.id).first()
+        if first_image:
+            post.preview_image = first_image.image
+            img = Image.open(post.preview_image.path)
+            img.thumbnail((300, 300))
+            img.save(post.preview_image.path)
+            post.save()
+
         return redirect(reverse('profile', args=[request.user.id]))
     return render(request, 'new_post.html')

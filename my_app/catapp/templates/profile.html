@@ -7,11 +7,14 @@
 <img src="/static/{{user.avatar.url}}" style="max-width: 300px; max-height: 300px;"/>
 <p>{{ user.bio }}</p>
 <h3>Posts</h3>
-{% for post in posts %}
-{{ post.title }}
-{{ post.description }}
-{% endfor %}
-{% for image in images %}
-<img src="/static/images/{{ image.preview_image }}" alt="no_image">
-{% endfor %}
+<div class="card-deck">
+    {% for post in posts %}
+    <div class="card">
+        <img src="/static/images/{{ post.preview_image }}" alt="no_image">
+        <a href="#" class="card-title">{{ post.title }}</a>
+        <p class="card-text"><small class="text-muted">{{ post.description|truncatechars:150 }}</small></p>
+
+    </div>
+    {% endfor %}
+</div>
 {% endblock %}

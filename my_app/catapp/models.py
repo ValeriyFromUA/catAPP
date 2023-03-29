@@ -28,12 +28,12 @@ class Posts(models.Model):
     likes_count = models.IntegerField(default=0)
     dislikes_count = models.IntegerField(default=0)
     tags = models.ManyToManyField(Tags, through='PostTags')
+    preview_image = models.ImageField(blank=True)
 
 
 class Images(models.Model):
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
     image = models.ImageField(blank=False)
-    preview_image = models.ImageField(blank=True)
 
 
 class PostTags(models.Model):
