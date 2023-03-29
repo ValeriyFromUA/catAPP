@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<h3 class="card-title">{{ post.title }}</h3>
+<p class="card-text"><small class="text-muted">{{ post.description}}</small></p>
+<div class="container">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-success">Like: {{ post.likes_count }}</button>
+        <button type="button" class="btn btn-danger">Dislike: {{ post.likes_count }}</button>
+    </div>
+
+</div>
+<br>
+{% for image in images %}
+<img class="d-block w-100" src="/static/images/{{ image.image }}" alt="oops">
+
+{% endfor %}
+
+{% endblock %}

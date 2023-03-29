@@ -124,3 +124,11 @@ def new_post(request):
 
         return redirect(reverse('profile', args=[request.user.id]))
     return render(request, 'new_post.html')
+
+
+def post_details(request, pk):
+    post = Posts.objects.get(id=pk)
+    images = Images.objects.filter(post_id=pk).all()
+    context = {'post': post, 'images': images}
+
+    return render(request, 'post.html', context)

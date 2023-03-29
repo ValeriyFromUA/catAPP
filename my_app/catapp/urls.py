@@ -12,7 +12,7 @@ urlpatterns = [
     path('edit_profile/<str:pk>/', views.edit_profile, name="edit_profile"),
     path('confirm/', views.confirm, name="confirm"),
     path('new_post/', views.new_post, name="new_post"),
-    # path('delete-message/<str:pk>/', views.deleteMessage, name="delete-message"),
+    path('post/<str:pk>/', views.post_details, name="post"),
     #
     # path('update-user/', views.updateUser, name="update-user"),
     #
