@@ -13,6 +13,11 @@
 
 </div>
 <br>
+{% for tag in tags %}
+<h5>{{ tag.tag }}</h5>
+
+{% endfor %}
+<br>
 {% for image in images %}
 <img class="d-block w-100" src="/static/images/{{ image.image }}" alt="oops">
 

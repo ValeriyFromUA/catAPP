@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import User, Images, Posts, Tags
+from .models import User, Images, Posts, PostTags
 from django import forms
 
 
@@ -28,8 +28,8 @@ class PostsForm(ModelForm):
 
 class TagsForm(ModelForm):
     class Meta:
-        model = Tags
-        fields = ['name']
+        model = PostTags
+        fields = ['tag']
 
 
 class ImagesForm(ModelForm):

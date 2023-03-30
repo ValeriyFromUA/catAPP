@@ -21,6 +21,14 @@
                         <input class="form-control" type="file" name="image" multiple="" accept="image/*"
                                required="" id="image">
                     </div>
+                    <div class="form-row">
+                        {{ formset.management_form }}
+                        {% for form in formset %}
+
+                        {{ form.as_p }}
+
+                        {% endfor %}
+                    </div>
                     <button type="submit" class="btn btn-primary">Create post</button>
                 </div>
                 <br>

@@ -2,13 +2,14 @@ from random import randrange
 from PIL import Image
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.decorators import login_required
+from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse, reverse_lazy
 
 from cofirmation import send_confirmation_email
 from .forms import NewUserForm, UserForm, ConfirmationForm, PostsForm, ImagesForm, TagsForm
-from .models import User, Confirmations, Posts, Likes, Tags, Images, PostTags
+from .models import User, Confirmations, Posts, Likes, Images, PostTags
 
 
 def login_page(request):
@@ -101,7 +102,10 @@ def user_profile(request, pk):
 
 @login_required
 def new_post(request):
+    PostTagset = formset_factory(TagsForm, extra=3)
+    tagset = PostTagset()
     if request.method == 'POST':
+        tagset = PostTagset(request.POST)
         post_form = PostsForm(request.POST)
         images_form = ImagesForm(request.POST, request.FILES)
         if not post_form.is_valid():
@@ -111,6 +115,12 @@ def new_post(request):
         post = post_form.save(commit=False)
         post.user_id = request.user
         post.save()
+        if tagset.is_valid():
+            for tag_form in tagset:
+                data = tag_form.cleaned_data
+                print(data.get('tag'))
+                tag = PostTags(post=post, tag=data.get('tag'))
+                tag.save()
         for image in request.FILES.getlist('image'):
             image = Images(post_id=post, image=image)
             image.save()
@@ -123,12 +133,13 @@ def new_post(request):
             post.save()
 
         return redirect(reverse('profile', args=[request.user.id]))
-    return render(request, 'new_post.html')
+    return render(request, 'new_post.html', {'formset': tagset})
 
 
 def post_details(request, pk):
     post = Posts.objects.get(id=pk)
     images = Images.objects.filter(post_id=pk).all()
-    context = {'post': post, 'images': images}
+    tags = PostTags.objects.filter(post_id=pk).all()
+    context = {'post': post, 'images': images, 'tags': tags}
 
     return render(request, 'post.html', context)

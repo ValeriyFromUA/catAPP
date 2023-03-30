@@ -16,10 +16,6 @@ class Confirmations(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Tags(models.Model):
-    name = models.CharField(max_length=100)
-
-
 class Posts(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(blank=False, max_length=200)
@@ -27,7 +23,6 @@ class Posts(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     likes_count = models.IntegerField(default=0)
     dislikes_count = models.IntegerField(default=0)
-    tags = models.ManyToManyField(Tags, through='PostTags')
     preview_image = models.ImageField(blank=True)
 
 
@@ -38,7 +33,7 @@ class Images(models.Model):
 
 class PostTags(models.Model):
     post = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    tag = models.ForeignKey(Tags, on_delete=models.CASCADE)
+    tag = models.CharField(max_length=100, blank=True)
 
 
 class Likes(models.Model):
