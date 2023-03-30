@@ -6,10 +6,14 @@
 <h3 class="card-title">{{ post.title }}</h3>
 <p class="card-text"><small class="text-muted">{{ post.description}}</small></p>
 <div class="container">
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-success">Like: {{ post.likes_count }}</button>
-        <button type="button" class="btn btn-danger">Dislike: {{ post.likes_count }}</button>
-    </div>
+    <form method="post" action="{% url 'post' pk=post.id %}">
+        {% csrf_token %}
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="submit" name="is_liked" value="True" class="btn btn-success">Like: {{ likes_count }}</button>
+            <button type="submit" name="is_disliked" value="False" class="btn btn-danger">Dislike: {{ dislikes_count }}
+            </button>
+        </div>
+    </form>
 
 </div>
 <br>
