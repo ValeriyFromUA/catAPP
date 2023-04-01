@@ -13,8 +13,8 @@ urlpatterns = [
     path('confirm/', views.confirm, name="confirm"),
     path('new_post/', views.new_post, name="new_post"),
     path('post/<str:pk>/', views.post_details, name="post"),
-    #
-    # path('update-user/', views.updateUser, name="update-user"),
+    path('delete_post/<str:pk>/', views.delete_post, name="delete_post"),
+    path('home/', views.home, name="update-user"),
     #
     # path('topics/', views.topicsPage, name="topics"),
     # path('activity/', views.activityPage, name="activity"),

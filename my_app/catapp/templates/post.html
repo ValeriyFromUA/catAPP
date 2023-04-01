@@ -4,6 +4,13 @@
 
 {% block content %}
 <h3 class="card-title">{{ post.title }}</h3>
+{% if request.user == post.user_id %}
+<form method="post" action="{% url 'delete_post' post.id %}">
+    {% csrf_token %}
+
+    <button type="submit" name="delete_post" value="delete_post" class="btn btn-warning">Delete post</button>
+</form>
+{% endif %}
 <p class="card-text"><small class="text-muted">{{ post.description}}</small></p>
 <div class="container">
     <form method="post" action="{% url 'post' pk=post.id %}">

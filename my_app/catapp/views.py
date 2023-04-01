@@ -88,7 +88,8 @@ def edit_profile(request, pk):
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    posts = Posts.objects.all()
+    return render(request, 'home.html', {'posts': posts})
 
 
 @login_required
@@ -163,3 +164,11 @@ def post_details(request, pk):
                'dislikes_count': dislikes_count}
 
     return render(request, 'post.html', context)
+
+
+def delete_post(request, pk):
+    post = get_object_or_404(Posts, id=pk)
+    if request.method == 'POST':
+        post.delete()
+        return redirect(reverse('profile', args=[request.user.id]))
+    return render(request, 'post.html', {'post': post})
