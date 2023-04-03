@@ -6,6 +6,7 @@ from django.urls import reverse
 
 
 class LoginView(View):
+
     @staticmethod
     def get(request):
         return render(request, 'login.html')

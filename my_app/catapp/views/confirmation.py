@@ -6,7 +6,6 @@ from ..models import Confirmations
 
 
 class ConfirmView(View):
-    extra_context = {'title': 'Home page'}
     template_name = 'confirmation.html'
 
     def get(self, request):

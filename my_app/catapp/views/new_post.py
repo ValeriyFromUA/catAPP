@@ -33,18 +33,17 @@ class NewPostView(View):
             for tag_form in tagset:
                 data = tag_form.cleaned_data
                 tag = PostTags(post=post, tag=data.get('tag'))
-                tag.save()
+                if data.get('tag') is not None:
+                    tag.save()
 
         for image in request.FILES.getlist('image'):
             image = Images(post_id=post, image=image)
             image.save()
-
         first_image = Images.objects.filter(post_id=post.id).first()
-
         if first_image:
             post.preview_image = first_image.image
             img = Image.open(post.preview_image.path)
-            img.thumbnail((300, 300))
+            img.thumbnail((900, 900))
             img.save(post.preview_image.path)
             post.save()
 

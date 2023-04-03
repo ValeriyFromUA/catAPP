@@ -10,7 +10,6 @@ from ..models import Confirmations
 
 
 class RegistrationView(View):
-    extra_context = {'title': 'Registration'}
 
     @staticmethod
     def get(request):

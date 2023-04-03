@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
-
+{% block title %} Edit your profile {% endblock %}
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <h2>Add more details before completing your profile</h2>
-            <form method="POST" enctype="multipart/form-data">
+            <br>
+            <h4>Add more details before completing your profile</h4>
+            <br>
+            <form class="form-group" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 {% if form.errors %}
-                <p class="alert alert-danger">Please correct the errors below.</p>
+
                 {% endif %}
                 <div class="form-group">
-                    <label for="{{ form.bio.id_for_label }}">Bio:</label>
-                    {{ form.bio }}
+                    <label for="bio">A few words about yourself:</label>
+                    <input type="text" class="form-control" id="bio" name="bio" required value="{{ user.bio }}">
                 </div>
                 <div class="form-group">
-                    <label for="{{ form.avatar.id_for_label }}">Avatar:</label>
+                    <label for="avatar">Avatar:</label>
                     {{ form.avatar }}
                 </div>
-                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="submit" class="btn btn-dark">Save Changes</button>
             </form>
 
             <br>
