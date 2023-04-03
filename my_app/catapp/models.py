@@ -6,7 +6,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=200, null=True, unique=True)
     email = models.EmailField(unique=True, null=True)
     bio = models.TextField(null=True)
-    avatar = models.ImageField(null=True, default="avatar.svg")
+    avatar = models.ImageField(null=True, default="avatar.svg", upload_to='users/avatar/')
     is_confirmed = models.BooleanField(default=False)
 
 
@@ -23,12 +23,12 @@ class Posts(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     likes_count = models.IntegerField(default=0)
     dislikes_count = models.IntegerField(default=0)
-    preview_image = models.ImageField(blank=True)
+    preview_image = models.ImageField(blank=True, upload_to=f'posts/preview/')
 
 
 class Images(models.Model):
     post_id = models.ForeignKey(Posts, on_delete=models.CASCADE)
-    image = models.ImageField(blank=False)
+    image = models.ImageField(blank=False, upload_to=f'posts/images/')
 
 
 class PostTags(models.Model):
