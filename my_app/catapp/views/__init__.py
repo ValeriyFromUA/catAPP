@@ -1,3 +1,4 @@
+from .about import AboutView
 from .confirmation import ConfirmView
 from .delete_post import DeletePostView
 from .editprofile import EditProfileView

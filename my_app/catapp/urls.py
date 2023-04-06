@@ -1,7 +1,7 @@
 from django.urls import path
 
 from catapp.views import (HomeView, UserProfileView, PostView, DeletePostView, RegistrationView, ConfirmView,
-                          EditProfileView, LoginView, LogoutView, NewPostView)
+                          EditProfileView, LoginView, LogoutView, NewPostView, AboutView)
 
 urlpatterns = [
     path('login/', LoginView.as_view(), name="login"),
@@ -17,5 +17,6 @@ urlpatterns = [
     path('post/<str:pk>/', PostView.as_view(), name="post"),
     path('post/<int:pk>/delete/', DeletePostView.as_view(), name='delete_post'),
     path('home/', HomeView.as_view(), name='home'),
+    path('about/', AboutView.as_view(), name='about'),
 
 ]

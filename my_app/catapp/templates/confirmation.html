@@ -17,6 +17,7 @@
             <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
+                    <label for="confirmation_key">Your email address must be verified to use this site</label>
                     <label for="confirmation_key">A verification key has been sent to your email address, enter the code
                         here:</label>
                     <input type="text" id="confirmation_key" name="confirmation_key" class="form-control">

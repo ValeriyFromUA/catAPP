@@ -12,6 +12,7 @@ django = "^4.1.7"
 djangorestframework = "^3.14.0"
 pillow = "^9.4.0"
 django-imagekit = "^4.1.0"
+factory-boy = "^3.2.1"
 
 
 [build-system]

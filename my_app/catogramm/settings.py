@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'catogramm.middleware.ConfirmUserMiddleware'
 ]
 
 ROOT_URLCONF = 'catogramm.urls'
