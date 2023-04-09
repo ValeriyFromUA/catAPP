@@ -21,19 +21,19 @@
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
 
             {% if user.is_authenticated %}
-            <li><a href="/home/" class="nav-link px-2 text-white">Home</a></li>
-          <li><a href="/new_post" class="nav-link px-2 text-white">New Post</a></li>
+            <li><a href="/home/" class="nav-link px-2 {% if 'home' in request.path %}disabled{% else %}text-white{% endif %}">Home</a></li>
+          <li><a href="/new_post" class="nav-link px-2 {% if 'new_post' in request.path %}disabled{% else %}text-white{% endif %}">New Post</a></li>
             {% if 'profile/' in request.path and request.path %}
-            <li><a href="/edit_profile/{{request.user.id}}" class="nav-link px-2 text-white">Edit profile</a></li>
+            <li><a href="/edit_profile/{{request.user.id}}" class="nav-link px-2 {% if 'edit_profile' in request.path %}disabled{% else %}text-white{% endif %}">Edit profile</a></li>
             {% endif %}
             {% endif %}
 
-          <li><a href="/about" class="nav-link px-2 text-white">About</a></li>
+          <li><a href="/about" class="nav-link px-2 {% if 'about' in request.path %}disabled{% else %}text-white{% endif %}">About</a></li>
         </ul>
 
 <div class="text-end">
   {% if user.is_authenticated %}
-    <a href="/profile/{{request.user.id}}" class="btn btn-outline-light me-2">Profile: {{ request.user.username }}</a>
+    <a href="/profile/{{request.user.id}}" class="btn btn-outline-{% if 'profile' in request.path %}secondary{% else %}light{% endif %} me-2">Profile: {{ request.user.username }}</a>
     <a href="{% url 'logout' %}" class="btn btn-outline-light me-2">Logout</a>
   {% else %}
     <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Login</a>
