@@ -10,7 +10,6 @@ urlpatterns = [
     # #
     path('', LoginView.as_view(), name="login"),
     path('profile/<str:pk>/', UserProfileView.as_view(), name="profile"),
-    # #
     path('edit_profile/<str:pk>/', EditProfileView.as_view(), name="edit_profile"),
     path('confirm/', ConfirmView.as_view(), name='confirm'),
     path('new_post/', NewPostView.as_view(), name="new_post"),

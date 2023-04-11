@@ -1,8 +1,8 @@
 from django.urls import reverse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from ..forms import ConfirmationForm
-from ..models import Confirmations
+from ..models import Confirmations, User
 
 
 class ConfirmView(View):
@@ -25,4 +25,8 @@ class ConfirmView(View):
                 return redirect(reverse('edit_profile', args=[user.id]))
             else:
                 form.add_error('confirmation_key', 'invalid code')
+        if 'delete_wrong_user' in request.POST:
+            user = get_object_or_404(User, id=request.user.id)
+            user.delete()
+            return redirect(reverse('register'))
         return render(request, self.template_name, {'form': form})

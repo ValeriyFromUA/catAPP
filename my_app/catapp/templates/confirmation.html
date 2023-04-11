@@ -7,10 +7,10 @@
             <br>
             <br>
             {% if form.errors %}
-            <p>Error, check:</p>
+            <p class="text-danger">Error, check:</p>
             <ul>
                 {% for error in form.errors %}
-                <li>{{ error }}</li>
+                <li class="text-danger">{{ error }}</li>
                 {% endfor %}
             </ul>
             {% endif %}
@@ -22,8 +22,13 @@
                         here:</label>
                     <input type="text" id="confirmation_key" name="confirmation_key" class="form-control">
                 </div>
-                <button type="submit" class="btn btn-dark">Підтвердити</button>
+                <button type="submit" class="btn btn-dark">Confirm</button>
+                <button type="submit" id="delete_wrong_user" name="delete_wrong_user" class="btn btn-danger">Change my
+                    data
+                </button>
             </form>
+            <br>
+
         </div>
     </div>
 </div>

@@ -15,5 +15,7 @@ class DeletePostView(LoginRequiredMixin, View):
     @staticmethod
     def post(request, pk):
         post = get_object_or_404(Posts, id=pk)
-        post.delete()
-        return redirect(reverse('profile', args=[request.user.id]))
+        print(post)
+        if request.user.id == post.user_id.id:
+            post.delete()
+            return redirect(reverse('profile', args=[request.user.id]))
