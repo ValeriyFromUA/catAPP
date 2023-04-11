@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %} {{ post.title }} {% endblock %}
+{% block content %}
+<div class="text-center">
+    <h3 class="card-title">{{ post.title }}</h3>
+</div>
+
+{% if request.user == post.user_id %}
+<div class="container">
+    <form method="post" action="{% url 'delete_post' post.id %}">
+        {% csrf_token %}
+
+        <button type="submit" name="delete_post" value="delete_post" class="btn btn-warning">Delete post</button>
+    </form>
+</div>
+<br>
+{% endif %}
+<div class="text-center">
+    <p class="card-text"><small class="text-muted">{{ post.description}}</small></p>
+</div>
+<div class="container">
+    <div class="row">{% for tag in tags %}
+        <p class="card-text"><small class="text-primary">#{{ tag.tag }}, </small></p>
+
+        {% endfor %}
+    </div>
+</div>
+
+
+<br>
+{% for image in images %}
+<img class="d-block w-100" src="/static/images/{{ image.image }}" alt="oops"> <br>
+
+{% endfor %}
+
+<div class="container">
+    <form method="post" action="{% url 'post' pk=post.id %}">
+        {% csrf_token %}
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="submit" name="is_liked" value="True" class="btn btn-success">Like: {{ likes_count }}</button>
+            <button type="submit" name="is_disliked" value="False" class="btn btn-danger">Dislike: {{ dislikes_count }}
+            </button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
