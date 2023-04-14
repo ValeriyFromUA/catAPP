@@ -22,7 +22,7 @@ The application is developed using:
 1. Clone the repository to your local machine: ```https://github.com/ValeriyFromUA/catAPP.git```
 2. Create a virtual environment
 3. Install the required packages by running: ``` poetry install ```
-4. Create a PostgreSQL database and update the DATABASES configuration in settings.py.
+4. Createdatabase and update the DATABASES configuration in settings.py, add Your ```SECRET_KEY``` in .env file
 5. Apply the database migrations.
 6. Start the development server: ```python manage.py runserver```
 7. Open your browser and go to ```http://localhost:8000/``` to access the application.
