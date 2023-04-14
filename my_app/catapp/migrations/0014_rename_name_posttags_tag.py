@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catapp', '0013_remove_posts_tags_remove_posttags_tag_posttags_name_and_more'),
+        ("catapp", "0013_remove_posts_tags_remove_posttags_tag_posttags_name_and_more"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='posttags',
-            old_name='name',
-            new_name='tag',
+            model_name="posttags",
+            old_name="name",
+            new_name="tag",
         ),
     ]

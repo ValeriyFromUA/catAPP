@@ -6,23 +6,23 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catapp', '0017_alter_images_image_alter_posts_preview_image'),
+        ("catapp", "0017_alter_images_image_alter_posts_preview_image"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='images',
-            name='image',
-            field=models.ImageField(upload_to='posts/images/'),
+            model_name="images",
+            name="image",
+            field=models.ImageField(upload_to="posts/images/"),
         ),
         migrations.AlterField(
-            model_name='posts',
-            name='preview_image',
-            field=models.ImageField(blank=True, upload_to='posts/preview/'),
+            model_name="posts",
+            name="preview_image",
+            field=models.ImageField(blank=True, upload_to="posts/preview/"),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='avatar',
-            field=models.ImageField(default='avatar.svg', null=True, upload_to='users/avatar/'),
+            model_name="user",
+            name="avatar",
+            field=models.ImageField(default="avatar.svg", null=True, upload_to="users/avatar/"),
         ),
     ]

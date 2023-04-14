@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catapp', '0014_rename_name_posttags_tag'),
+        ("catapp", "0014_rename_name_posttags_tag"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='images',
-            name='image',
-            field=models.ImageField(upload_to='posts/<django.db.models.fields.related.ForeignKey>/'),
+            model_name="images",
+            name="image",
+            field=models.ImageField(upload_to="posts/<django.db.models.fields.related.ForeignKey>/"),
         ),
         migrations.AlterField(
-            model_name='posts',
-            name='preview_image',
-            field=models.ImageField(blank=True, upload_to='posts/preview/'),
+            model_name="posts",
+            name="preview_image",
+            field=models.ImageField(blank=True, upload_to="posts/preview/"),
         ),
     ]
