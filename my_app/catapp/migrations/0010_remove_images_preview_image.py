@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catapp', '0009_alter_images_image_alter_images_preview_image'),
+        ("catapp", "0009_alter_images_image_alter_images_preview_image"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='images',
-            name='preview_image',
+            model_name="images",
+            name="preview_image",
         ),
     ]

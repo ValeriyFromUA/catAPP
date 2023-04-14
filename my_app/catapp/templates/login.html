@@ -7,6 +7,13 @@
             <br>
             <br>
             <div class="card">
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
                     <form class="form-group" method="POST" action="">
                         {% csrf_token %}
                         <div class="container">

@@ -4,15 +4,17 @@
 {% block title %} {{ post.title }} {% endblock %}
 {% block content %}
 <div class="text-center">
+    <br>
     <h3 class="card-title">{{ post.title }}</h3>
+    <h3>Author: <a href="/profile/{{post.user_id.id}}">{{post.user_id}}</a></h3>
 </div>
 
 {% if request.user == post.user_id %}
 <div class="container">
-    <form method="post" action="{% url 'delete_post' post.id %}">
+    <form action="{% url 'delete_post' pk=post.id %}" method="POST">
         {% csrf_token %}
 
-        <button type="submit" name="delete_post" value="delete_post" class="btn btn-warning">Delete post</button>
+        <input type="submit" name="delete_post" class="btn btn-warning" value="Delete post">
     </form>
 </div>
 <br>
